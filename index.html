@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Меню Кафе/Бара</title>
+    <title>Бульвар 21 Меню</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="Безымянный-7_Монтажная область 1 копия 55.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="Безымянный-7_Монтажная область 1 копия 55.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="Безымянный-7_Монтажная область 1 копия 55.png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
@@ -71,10 +74,10 @@
                 <div class="bg-white p-6 rounded-lg shadow-lg">
                     <h4 class="text-2xl mb-2">Салаты</h4>
                     <ul class="list-none p-0">
-                        <li class="mb-2"><span class="font-bold">С хрустящими баклажанами</span> (250г) <span class="float-right">420р</span><img src="DSC03294.JPG" alt="С хрустящими баклажанами" class="w-full h-48 object-cover rounded-md mb-4"></li>
-                        <li class="mb-2"><span class="font-bold">Груша с горгондзолой</span> (200г) <span class="float-right">590р</span><img src="orig.jpg" alt="Груша с горгондзолой" class="w-full h-48 object-cover rounded-md mb-4"></li>
-                        <li class="mb-2"><span class="font-bold">С манго и креветками</span> (230г) <span class="float-right">590р</span><img src="DSC03315.JPG" alt="С манго и креветками" class="w-full h-48 object-cover rounded-md mb-4"></li>
-                        <li class="mb-2"><span class="font-bold">Хрустящая курочка</span> (210г) <span class="float-right">450р</span><img src="DSC03276.JPG" alt="Хрустящая курочка" class="w-full h-48 object-cover rounded-md mb-4"></li>
+                        <li class="mb-2"><span class="font-bold">С хрустящими баклажанами</span> (250г) <span class="float-right">420р</span><a href="#" class="menu-item-image"><img src="DSC03294.JPG" alt="С хрустящими баклажанами" class="w-full h-48 object-cover rounded-md mb-4"></a></li>
+                        <li class="mb-2"><span class="font-bold">Груша с горгондзолой</span> (200г) <span class="float-right">590р</span><a href="#" class="menu-item-image"><img src="orig.jpg" alt="Груша с горгондзолой" class="w-full h-48 object-cover rounded-md mb-4"></a></li>
+                        <li class="mb-2"><span class="font-bold">С манго и креветками</span> (230г) <span class="float-right">590р</span><a href="#" class="menu-item-image"><img src="DSC03315.JPG" alt="С манго и креветками" class="w-full h-48 object-cover rounded-md mb-4"></a></li>
+                        <li class="mb-2"><span class="font-bold">Хрустящая курочка</span> (210г) <span class="float-right">450р</span><a href="#" class="menu-item-image"><img src="DSC03276.JPG" alt="Хрустящая курочка" class="w-full h-48 object-cover rounded-md mb-4"></a></li>
                     </ul>
                 </div>
 
@@ -223,6 +226,12 @@
     <section id="contacts" class="p-8 text-center">
         <h2 class="text-4xl mb-8">Контакты</h2>
         <p class="text-xl mb-4"><strong>Адрес:</strong> Азов Петровский бульвар 21</p>
+        <p class="text-xl mb-4">
+            <strong>Телефон:</strong> 
+            <a href="tel:+79381625273" id="phoneNumber" class="text-blue-600 hover:underline cursor-pointer">
+                +7 (938) 162-52-73
+            </a>
+        </p>
         <p class="text-xl mb-4"><strong>Часы работы:</strong></p>
         <p class="text-xl mb-2">Пн-Чт 15:00-00:00</p>
         <p class="text-xl mb-4">Пт-Вс 12:00-02:00</p>
@@ -247,6 +256,66 @@
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
+            });
+        });
+
+        const phoneNumberLink = document.getElementById('phoneNumber');
+        phoneNumberLink.addEventListener('click', function(e) {
+            // Копируем номер телефона в буфер обмена
+            const phoneNumber = this.textContent.trim().replace(/[^\d+]/g, ''); // Очищаем номер от лишних символов
+            navigator.clipboard.writeText(phoneNumber).then(() => {
+                console.log('Номер телефона скопирован: ' + phoneNumber);
+                // Опционально: можно добавить всплывающее уведомление о копировании
+            }).catch(err => {
+                console.error('Не удалось скопировать номер телефона: ', err);
+            });
+        });
+    </script>
+</body>
+</html>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden opacity-0 transition-opacity duration-300 ease-out">
+        <div class="relative bg-white p-4 rounded-lg max-w-3xl max-h-full overflow-auto">
+            <img id="modalImage" src="" alt="Full size image" class="max-w-full max-h-full object-contain">
+            <button id="closeModal" class="absolute top-2 right-2 text-white text-3xl font-bold bg-gray-800 rounded-full w-10 h-10 flex items-center justify-center">&times;</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const imageModal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const closeModal = document.getElementById('closeModal');
+            const menuImages = document.querySelectorAll('.menu-item-image');
+
+            menuImages.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const imgSrc = this.querySelector('img').src;
+                    modalImage.src = imgSrc;
+                    imageModal.classList.remove('hidden');
+                    // Удаляем setTimeout для немедленного начала анимации
+                    imageModal.classList.remove('opacity-0');
+                });
+            });
+
+            closeModal.addEventListener('click', function() {
+                imageModal.classList.add('opacity-0');
+                imageModal.addEventListener('transitionend', function handler() {
+                    imageModal.classList.add('hidden');
+                    imageModal.removeEventListener('transitionend', handler);
+                }, { once: true });
+            });
+
+            imageModal.addEventListener('click', function(e) {
+                if (e.target === imageModal) {
+                    imageModal.classList.add('opacity-0');
+                    imageModal.addEventListener('transitionend', function handler() {
+                        imageModal.classList.add('hidden');
+                        imageModal.removeEventListener('transitionend', handler);
+                    }, { once: true });
+                }
             });
         });
     </script>
