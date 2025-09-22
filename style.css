@@ -1,18 +1,5 @@
 /* Add any additional custom styles here if needed */
 
-@font-face {
-    font-family: 'Denistina';
-    src: url('./Denistina/denistina_en.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Denistina';
-    src: url('./Denistina/denistina_en.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
 
 #welcome {
     background-image: url('photo_2025-07-29_17-59-09.jpg');
